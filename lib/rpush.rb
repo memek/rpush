@@ -1,14 +1,21 @@
+require 'logger'
 require 'multi_json'
 require 'active_support/all'
 
 module Rpush
   def self.attr_accessible_available?
-    require 'rails'
-    ::Rails::VERSION::STRING < '4' || defined?(::ActiveRecord::MassAssignmentSecurity)
+    begin
+      require 'rails'
+    rescue LoadError
+      false
+    else
+      ::Rails::VERSION::STRING < '4' || defined?(::ActiveRecord::MassAssignmentSecurity)
+    end
   end
 end
 
 require 'rpush/version'
+require 'rpush/cli'
 require 'rpush/deprecation'
 require 'rpush/deprecatable'
 require 'rpush/logger'
@@ -24,12 +31,17 @@ module Rpush
     defined? JRUBY_VERSION
   end
 
-  def self.require_for_daemon
-    require 'rpush/daemon'
-  end
-
   def self.logger
     @logger ||= Logger.new
+  end
+
+  def self.root
+    begin
+      require 'rails'
+      Rails.root || Dir.pwd
+    rescue LoadError
+      Dir.pwd
+    end
   end
 
   class << self

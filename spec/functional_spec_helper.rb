@@ -15,7 +15,6 @@ RSpec.configure do |config|
     end
 
     if functional_example?(example)
-      Rails.stub(root: File.expand_path(File.join(File.dirname(__FILE__), '..', 'tmp')))
       Rpush.config.logger = ::Logger.new(STDOUT)
     end
   end

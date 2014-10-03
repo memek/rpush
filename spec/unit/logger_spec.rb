@@ -16,7 +16,7 @@ describe Rpush::Logger do
     FileUtils.stub(mkdir_p: nil)
     STDERR.stub(:puts)
     Rpush.config.foreground = true
-    Rpush.config.log_dir = Rails.root
+    Rpush.config.log_file = 'tmp/rpush.log'
   end
 
   it "disables logging if the log file cannot be opened" do

@@ -1,19 +1,19 @@
 module Rpush
   module Daemon
     module Loggable
-      def log_info(msg)
-        Rpush.logger.info(app_prefix(msg))
+      def log_info(msg, inline = false)
+        Rpush.logger.info(app_prefix(msg), inline)
       end
 
-      def log_warn(msg)
-        Rpush.logger.warn(app_prefix(msg))
+      def log_warn(msg, inline = false)
+        Rpush.logger.warn(app_prefix(msg), inline)
       end
 
-      def log_error(e)
+      def log_error(e, inline = false)
         if e.is_a?(Exception)
           Rpush.logger.error(e)
         else
-          Rpush.logger.error(app_prefix(e))
+          Rpush.logger.error(app_prefix(e), inline)
         end
       end
 
