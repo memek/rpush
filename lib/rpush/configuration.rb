@@ -38,7 +38,7 @@ module Rpush
 
     deprecated(:log_dir=, '2.3.0', 'Please use log_file instead.')
 
-    delegate :redis_options, :redis_options=, to: :Modis
+    delegate :redis_options, :redis_options=, to: ::Modis
 
     def initialize
       super
